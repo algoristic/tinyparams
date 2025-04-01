@@ -1,7 +1,7 @@
 {
   "name": "@algoristic/tinyparams",
   "version": "1.0.0",
-  "description": "tinyparams",
+  "description": "Get, set and watch url query parameters without any dependencies.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
