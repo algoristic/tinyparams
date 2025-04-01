@@ -1,5 +1,5 @@
 {
-  "name": "tinyparams",
+  "name": "@algoristic/tinyparams",
   "version": "1.0.0",
   "description": "tinyparams",
   "main": "./dist/index.js",

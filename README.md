@@ -1,4 +1,4 @@
-# tinyparams
+# @algoristic/tinyparams
 
 > Get, set and watch url query parameters without any dependencies.
 
@@ -13,13 +13,13 @@ Updates to parameter values are detected by extending [`history.pushState`](http
 ## Installation
 
 ```sh
-npm i tinyparams
+npm i @algoristic/tinyparams
 ```
 
 ## Usage
 
 ```ts
-import { params } from 'tinyparams';
+import { params } from '@algoristic/tinyparams';
 ```
 
 ### Single parameters
@@ -89,7 +89,7 @@ setAll({ foo: 'bar', answer: 42 });
 
 ## Configuration
 
-`tinyparams` is fully compatible with _hash routing_ by just setting:
+`@algoristic/tinyparams` is fully compatible with _hash routing_ by just setting:
 
 ```ts
 params.useHash = true;
