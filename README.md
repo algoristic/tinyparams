@@ -24,32 +24,49 @@ import { params } from '@algoristic/tinyparams';
 
 ### Single parameters
 
+#### Get a value
+
 ```ts
-// get value
 const foo: string | undefined = params('foo').getValue();
+```
 
-// set value
+#### Set a value
+
+```ts
 params('foo').setValue('bar');
-params('foo').setValue('bar', { updateMode: 'replace' }); // default 'push'
+params('foo').setValue('bar', {
+  updateMode: 'replace', // default 'push'
+});
+```
 
-// remove value
+#### Remove / unset a value
+```ts
 params('foo').remove();
+// equals to
 params('foo').setValue(undefined);
+```
 
-// perform on value changes
+#### Perform on changes
+
+```ts
+// url = '...?foo=bar'
 params('foo').onChange((newValue, oldValue) => {
   console.log(`old=${oldValue}, new=${newValue}`);
 });
-// url = '...?foo=bar'
 params('foo').setValue('baz');
 // console: 'old=bar, new=baz'
+```
 
-// perform with initial and all future values
-// basically `params('foo').onChange((newValue) => ...)` using the initial value too
+#### Watch values
+
+Perform a callback on the current value when it changes.
+Unlinke `.onChange` the method `.watch` starts with the initial value and only passes the current value.
+
+```ts
+// url = '...?foo=bar'
 params('foo').watch((foo) => {
   console.log(foo);
 });
-// url = '...?foo=bar'
 // console: 'bar'
 params('foo').setValue('baz');
 // console: 'baz'
@@ -57,14 +74,33 @@ params('foo').setValue('baz');
 
 ### Multiple parameters
 
-```ts
-// get a snapshot of the current state of all query parameters
-const { get, keys, values } = params.snapshot();
-let value: string | undefined = get('foo'); // analogous to params('foo').getValue()
-let keys: string[] = keys(); // returns ['foo', ...]
-let values: { key: string; value: string }[] = values(); // returns [{ key: 'foo', value: 'bar' }, ...]
+#### Snapshot
 
-// watch the state of all query parameters including the initial state
+Get a snapshot of the current state of all query parameters.
+
+```ts
+const { get, keys, values } = params.snapshot();
+
+// get value from snapshot
+let value: string | undefined = get('foo');
+// analogous to params('foo').getValue()
+
+// get all parameter keys
+let keys: string[] = keys();
+// returns ['foo', ...]
+
+// get all parameter key-value pairs
+let values: { key: string; value: string }[] = values();
+// returns [{ key: 'foo', value: 'bar' }, ...]
+
+
+```
+
+#### Watch all parameter values
+
+Behaves similar to [`params(key).watch(...)`](#watch-values).
+
+```ts
 params.watch(({ get, keys, values }) => {
   keys = keys();
   values = values();
@@ -78,7 +114,8 @@ params.watch(({ get, keys, values }) => {
 const { setOne, setMany, setAll } = params.modifiers();
 
 // set one value
-setOne('foo', 'bar'); // analogous to `params('foo').setValue('bar')`
+setOne('foo', 'bar');
+// analogous to `params('foo').setValue('bar')`
 
 // set many values (but retain existing other parameters)
 setMany({ foo: 'bar', answer: 42, debug: true });
