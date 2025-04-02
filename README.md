@@ -10,6 +10,13 @@ By default, all updates take place using [`history.pushState`](https://developer
 
 Updates to parameter values are detected by extending [`history.pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) and [`history.replaceState`](https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState) and also listing to [`popstate`](https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event) events to detect URL modifications via [`history.back()`](https://developer.mozilla.org/en-US/docs/Web/API/History/back), [`history.foward()`](https://developer.mozilla.org/en-US/docs/Web/API/History/forward) and the like.
 
+### Callbacks
+
+Watching changes of search parameters happens through callbacks. If you want to escape the callback
+hell you can just use [`@algoristic/tinyparams-async`](https://www.npmjs.com/package/@algoristic/tinyparams-async),
+that acts as a [`rxjs`](https://www.npmjs.com/package/rxjs) wrapper and adds convenient
+`.observe()` methods.
+
 ## Installation
 
 ```sh
@@ -40,6 +47,7 @@ params('foo').setValue('bar', {
 ```
 
 #### Remove / unset a value
+
 ```ts
 params('foo').remove();
 // equals to
@@ -92,8 +100,6 @@ let keys: string[] = keys();
 // get all parameter key-value pairs
 let values: { key: string; value: string }[] = values();
 // returns [{ key: 'foo', value: 'bar' }, ...]
-
-
 ```
 
 #### Watch all parameter values
